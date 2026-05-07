@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rangkaian Arus Searah</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#0f172a;
+      color:white;
+    }
+
+    nav{
+      width:100%;
+      background:#111827;
+      padding:18px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    nav h2{
+      color:#38bdf8;
+      font-size:28px;
+    }
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:25px;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+      transition:0.3s;
+      font-weight:bold;
+    }
+
+    nav ul li a:hover{
+      color:#38bdf8;
+    }
+
+    section{
+      min-height:100vh;
+      padding:80px 8%;
+    }
+
+    .hero{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      text-align:center;
+    }
+
+    .hero h1{
+      font-size:55px;
+      margin-bottom:20px;
+      color:#38bdf8;
+    }
+
+    .hero p{
+      max-width:700px;
+      line-height:1.8;
+      color:#cbd5e1;
+      font-size:18px;
+    }
+
+    h2{
+      color:#38bdf8;
+      margin-bottom:20px;
+      font-size:35px;
+    }
+
+    .card{
+      background:#1e293b;
+      padding:30px;
+      border-radius:18px;
+      margin-top:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.4);
+    }
+
+    .card p{
+      line-height:1.8;
+    }
+
+    .rumus-box{
+      background:#334155;
+      padding:20px;
+      border-radius:12px;
+      margin-bottom:18px;
+    }
+
+    .rumus-box h3{
+      margin-bottom:10px;
+      color:#38bdf8;
+    }
+
+    .calc-container{
+      display:flex;
+      flex-direction:column;
+      gap:15px;
+      max-width:500px;
+    }
+
+    input,
+    select,
+    button{
+      padding:14px;
+      border:none;
+      border-radius:12px;
+      font-size:16px;
+    }
+
+    input,
+    select{
+      background:#e2e8f0;
+    }
+
+    button{
+      background:#38bdf8;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#0ea5e9;
+      transform:scale(1.02);
+    }
+
+    .hasil{
+      margin-top:20px;
+      background:#334155;
+      padding:20px;
+      border-radius:12px;
+      line-height:1.8;
+    }
+
+    .contoh{
+      margin-bottom:25px;
+    }
+
+    footer{
+      background:#111827;
+      text-align:center;
+      padding:20px;
+      color:#94a3b8;
+    }
+
+    @media screen and (max-width:768px){
+
+      nav{
+        flex-direction:column;
+        gap:15px;
+        padding:15px;
+      }
+
+      nav ul{
+        flex-direction:column;
+        text-align:center;
+        gap:12px;
+      }
+
+      .hero h1{
+        font-size:35px;
+      }
+
+      .hero p{
+        font-size:15px;
+      }
+
+      h2{
+        font-size:28px;
+      }
+
+      section{
+        padding:60px 5%;
+      }
+
+      .card{
+        padding:20px;
+      }
+
+      .calc-container{
+        width:100%;
+      }
+
+      input,
+      select,
+      button{
+        width:100%;
+        font-size:15px;
+      }
+
+      .hasil{
+        font-size:14px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h2>Fisika DC</h2>
+
+    <ul>
+      <li><a href="#materi">Materi</a></li>
+      <li><a href="#rumus">Rumus</a></li>
+      <li><a href="#perhitungan">Perhitungan</a></li>
+      <li><a href="#contoh">Contoh Soal</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>Rangkaian Arus Searah</h1>
+
+    <p>
+      Website pembelajaran fisika tentang rangkaian arus searah lengkap 
+      dengan materi, rumus, kalkulator perhitungan, dan contoh soal 
+      beserta pembahasannya.
+    </p>
+  </section>
+
+  <section id="materi">
+
+    <h2>Materi</h2>
+
+    <div class="card">
+
+      <p>
+        Arus searah atau DC (Direct Current) adalah arus listrik 
+        yang mengalir hanya dalam satu arah.
+      </p>
+
+      <br>
+
+      <p>
+        Contoh sumber arus searah adalah baterai dan aki.
+      </p>
+
+      <br>
+
+      <p>
+        Besaran penting dalam rangkaian arus searah:
+      </p>
+
+      <br>
+
+      <ul>
+        <li>Tegangan (Volt)</li>
+        <li>Arus listrik (Ampere)</li>
+        <li>Hambatan (Ohm)</li>
+      </ul>
+
+      <br>
+
+      <p>
+        Hubungan antara ketiga besaran tersebut dijelaskan menggunakan Hukum Ohm.
+      </p>
+
+    </div>
+
+  </section>
+
+  <section id="rumus">
+
+    <h2>Rumus</h2>
+
+    <div class="card">
+
+      <div class="rumus-box">
+        <h3>Hukum Ohm</h3>
+        <p>V = I × R</p>
+      </div>
+
+      <div class="rumus-box">
+        <h3>Mencari Arus</h3>
+        <p>I = V / R</p>
+      </div>
+
+      <div class="rumus-box">
+        <h3>Mencari Hambatan</h3>
+        <p>R = V / I</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="perhitungan">
+
+    <h2>Perhitungan</h2>
+
+    <div class="card">
+
+      <div class="calc-container">
+
+        <select id="pilihan">
+
+          <option value="tegangan">
+            Hitung Tegangan (V)
+          </option>
+
+          <option value="arus">
+            Hitung Arus (I)
+          </option>
+
+          <option value="hambatan">
+            Hitung Hambatan (R)
+          </option>
+
+        </select>
+
+        <input 
+          type="number" 
+          id="nilai1" 
+          placeholder="Masukkan nilai pertama"
+        >
+
+        <input 
+          type="number" 
+          id="nilai2" 
+          placeholder="Masukkan nilai kedua"
+        >
+
+        <button onclick="hitung()">
+          Hitung Sekarang
+        </button>
+
+      </div>
+
+      <div class="hasil" id="hasil">
+        Hasil perhitungan akan muncul di sini...
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="contoh">
+
+    <h2>Contoh Soal</h2>
+
+    <div class="card">
+
+      <div class="contoh">
+
+        <h3>Soal 1</h3>
+
+        <br>
+
+        <p>
+          Sebuah lampu memiliki hambatan 10 Ω dan arus 2 A.
+          Berapakah tegangannya?
+        </p>
+
+        <br>
+
+        <p>Jawab:</p>
+
+        <p>V = I × R</p>
+
+        <p>V = 2 × 10</p>
+
+        <p>V = 20 Volt</p>
+
+      </div>
+
+      <hr>
+
+      <br>
+
+      <div class="contoh">
+
+        <h3>Soal 2</h3>
+
+        <br>
+
+        <p>
+          Sebuah rangkaian memiliki tegangan 12 Volt 
+          dan hambatan 4 Ω.
+        </p>
+
+        <br>
+
+        <p>Hitung besar arusnya.</p>
+
+        <br>
+
+        <p>Jawab:</p>
+
+        <p>I = V / R</p>
+
+        <p>I = 12 / 4</p>
+
+        <p>I = 3 Ampere</p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+    © 2026 Website Fisika Arus Searah
+  </footer>
+
+  <script>
+
+    function hitung(){
+
+      let pilihan =
+      document.getElementById("pilihan").value;
+
+      let nilai1 =
+      parseFloat(
+      document.getElementById("nilai1").value
+      );
+
+      let nilai2 =
+      parseFloat(
+      document.getElementById("nilai2").value
+      );
+
+      let hasil =
+      document.getElementById("hasil");
+
+      if(isNaN(nilai1) || isNaN(nilai2)){
+
+        hasil.innerHTML =
+        "Masukkan angka terlebih dahulu!";
+
+        return;
+      }
+
+      if(pilihan === "tegangan"){
+
+        let total = nilai1 * nilai2;
+
+        hasil.innerHTML = `
+          <h3>Perhitungan Tegangan</h3>
+
+          <br>
+
+          <p>Rumus:</p>
+
+          <p>V = I × R</p>
+
+          <br>
+
+          <p>Substitusi:</p>
+
+          <p>V = ${nilai1} × ${nilai2}</p>
+
+          <br>
+
+          <p><b>Hasil = ${total} Volt</b></p>
+        `;
+      }
+
+      else if(pilihan === "arus"){
+
+        let total = nilai1 / nilai2;
+
+        hasil.innerHTML = `
+          <h3>Perhitungan Arus</h3>
+
+          <br>
+
+          <p>Rumus:</p>
+
+          <p>I = V / R</p>
+
+          <br>
+
+          <p>Substitusi:</p>
+
+          <p>I = ${nilai1} / ${nilai2}</p>
+
+          <br>
+
+          <p><b>Hasil = ${total} Ampere</b></p>
+        `;
+      }
+
+      else if(pilihan === "hambatan"){
+
+        let total = nilai1 / nilai2;
+
+        hasil.innerHTML = `
+          <h3>Perhitungan Hambatan</h3>
+
+          <br>
+
+          <p>Rumus:</p>
+
+          <p>R = V / I</p>
+
+          <br>
+
+          <p>Substitusi:</p>
+
+          <p>R = ${nilai1} / ${nilai2}</p>
+
+          <br>
+
+          <p><b>Hasil = ${total} Ohm</b></p>
+        `;
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
