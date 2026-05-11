@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rangkaian Arus Searah</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #0f172a, #111827, #1e293b);
+      color: white;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      width: 100%;
+      background: rgba(17, 24, 39, 0.9);
+      padding: 16px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: #38bdf8;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover::after,
+    nav ul li a.active::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #38bdf8;
+    }
+
+    /* SECTION */
+
+    section {
+      padding: 70px 8%;
+    }
+
+    h2 {
+      font-size: 34px;
+      margin-bottom: 25px;
+      color: #38bdf8;
+    }
+
+    .card h3 {
+      color: #38bdf8;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero img {
+      width: 200px;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3));
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      margin-bottom: 20px;
+      color: #38bdf8;
+    }
+
+    .hero p {
+      max-width: 700px;
+      line-height: 1.8;
+      color: #cbd5e1;
+      font-size: 17px;
+    }
+
+    /* CARD */
+
+    .card {
+      background: #1e293b;
+      padding: 24px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card p {
+      line-height: 1.7;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    /* BOX */
+
+    .info-box {
+      background: #334155;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 18px;
+      border-left: 4px solid #38bdf8;
+    }
+
+    .info-box h3 {
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .stats-box {
+      background: #334155;
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .stats-box h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    /* KALKULATOR */
+
+    .calc-container {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #tambahanHambatan {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+
+    label {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: -6px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+    }
+
+    input,
+    select {
+      background: #e2e8f0;
+    }
+
+    button {
+      background: #38bdf8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0ea5e9;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .hasil {
+      margin-top: 20px;
+      background: #334155;
+      padding: 20px;
+      border-radius: 12px;
+      line-height: 1.8;
+    }
+
+    .note {
+      margin-top: 15px;
+      color: #cbd5e1;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* FAQ */
+
+    .faq-item {
+      margin-bottom: 18px;
+    }
+
+    .faq-item h3 {
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    /* TOP BUTTON */
+
+    .top-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 45px;
+      height: 45px;
+      background: #38bdf8;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #111827;
+      text-align: center;
+      padding: 30px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* SCROLLBAR */
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111827;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #38bdf8;
+      border-radius: 20px;
+    }
+
+    /* RESPONSIVE */
+
+    @media screen and (max-width:768px) {
+
+      nav {
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 5%;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      nav ul {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      nav ul li a {
+        background: #1e293b;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+      }
+
+      section {
+        padding: 60px 5%;
+      }
+
+      .hero {
+        min-height: 85vh;
+      }
+
+      .hero img {
+        width: 150px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      Fisika DC
+    </div>
+
+    <ul>
+      <li><a href="#materi">Materi</a></li>
+      <li><a href="#rumus">Rumus</a></li>
+      <li><a href="#perhitungan">Perhitungan</a></li>
+      <li><a href="#contoh">Contoh Soal</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <img src="https://cdn-icons-png.flaticon.com/512/2784/2784487.png" alt="Listrik">
+
+    <h1>Rangkaian Arus Searah</h1>
+
+    <p>
+      Media pembelajaran fisika mengenai rangkaian arus searah
+      yang dilengkapi materi, rumus, kalkulator sederhana,
+      dan contoh perhitungan.
+    </p>
+
+  </section>
+
+  <!-- MATERI -->
+
+  <section id="materi">
+
+    <h1><b>Materi</b></h1> <br>
+
+    <div class="card">
+
+      <h3>1. Pengertian Rangkaian Arus Searah</h3>
+
+      <br>
+
+      <p>
+        Arus searah atau Direct Current (DC) adalah arus listrik
+        yang mengalir dalam satu arah. Arus ini banyak digunakan
+        pada baterai, aki, dan perangkat elektronik sederhana. Dalam rangkaian arus searah terdapat beberapa komponen
+        utama seperti sumber tegangan, penghantar, hambatan,
+        saklar, dan beban listrik.
+      </p>
+
+      <br>
+
+      <p>
+        Untuk memahami rangkaian arus searah, kita perlu mengenal
+        beberapa besaran listrik dasar berikut:
+      </p>
+
+      <ul>
+        <li>Tegangan (Volt)</li>
+        <li>Arus listrik (Ampere)</li>
+        <li>Hambatan (Ohm)</li>
+      </ul>
+
+      <p>
+        Ketiga besaran tersebut saling berhubungan dalam
+        suatu konsep yang disebut Hukum Ohm.
+      </p> <br> <br>
+
+      <h3>2. Hukum Ohm</h3>
+      <br>
+
+      <p>
+        Hukum Ohm menjelaskan hubungan antara tegangan,
+        arus listrik, dan hambatan dalam suatu rangkaian listrik. Hukum ini menyatakan bahwa besar arus listrik
+        sebanding dengan tegangan dan berbanding terbalik dengan hambatan.
+      </p> <br>
+
+      <p>Hukum Ohm berbunyi : "Besar arus listrik yang mengalir pada sebuah penghantar berbanding lurus dengan beda
+        potensial (tegangan) di ujung-ujung penghantar tersebut dan berbanding terbalik dengan hambatannya, asalkan suhu
+        penghantar tetap".</p>
+      <br>
+      <p>Untuk mencari nilai-nilai tersebut, kita dapat menggunakan rumus-rumus berikut:</p>
+      <p>
+        V = I × R
+      </p>
+
+      <br>
+
+      <p>
+        Keterangan:
+      </p>
+
+      <ul>
+        <li>V = Tegangan (Volt)</li>
+        <li>I = Arus listrik (Ampere)</li>
+        <li>R = Hambatan (Ohm)</li>
+      </ul>
+      <br><br>
+
+      <h3>3. Jenis-Jenis Rangkaian</h3>
+      <br>
+      <p>Dalam penerapannya, rangkaian arus searah dibagi menjadi
+        beberapa jenis, yaitu rangkaian seri dan rangkaian paralel.</p> <br>
+      <p>
+        <b>a. Rangkaian Seri</b>
+      </p> <br>
+
+      <p>
+        Rangkaian seri adalah rangkaian listrik yang disusun
+        secara berurutan tanpa percabangan arus. Pada rangkaian seri, arus listrik yang mengalir
+        pada setiap komponen memiliki nilai yang sama.
+      </p> <br>
+      <p>Karakteristik Rangkaian Seri:</p>
+      <ul>
+        <li>Arus sama di setiap komponen</li>
+        <li>Tegangan terbagi pada setiap hambatan</li>
+        <li>Jika satu lampu mati, semua lampu ikut mati</li>
+      </ul> <br>
+
+      <p>
+        <b>b. Rangkaian Paralel</b>
+      </p> <br>
+
+      <p>
+        Rangkaian paralel adalah rangkaian listrik yang komponennya disusun bertingkat atau bercabang, di mana input
+        masing-masing komponen berasal dari sumber yang sama.
+      </p> <br>
+      <p>Karakteristik Rangkaian Paralel:</p>
+      <ul>
+        <li>Tegangan sama di setiap cabang</li>
+        <li>Arus terbagi pada setiap cabang</li>
+        <li>Jika satu lampu mati, lampu lain tetap menyala</li>
+      </ul>
+
+      <div class="stats">
+
+        <div class="stats-box">
+          <h3>3</h3>
+          <p>Rumus Dasar</p>
+        </div>
+
+        <div class="stats-box">
+          <h3>5</h3>
+          <p>Contoh Soal</p>
+        </div>
+
+        <div class="stats-box">
+          <h3>1</h3>
+          <p>Kalkulator</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- RUMUS -->
+
+  <section id="rumus">
+
+    <h1> <b></b>Rumus</b></h1> <br>
+
+    <div class="card">
+
+      <div class="info-box">
+        <h3>Hukum Ohm</h3>
+        <p>V = I × R</p>
+        <p>I = V / R</p>
+        <p>R = V / I</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Mencari Hambatan Total Seri</h3>
+        <p>R_total = R1 + R2 + ... + Rn</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Mencari Hambatan Total Paralel</h3>
+        <p>1/R_total = 1/R1 + 1/R2 + ... + 1/Rn</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PERHITUNGAN -->
+
+  <section id="perhitungan">
+
+    <h1> <b>Perhitungan</b></h1>
+
+    <div class="card">
+
+      <div class="calc-container">
+
+        <select id="pilihan">
+          <option value="tegangan">Hitung Tegangan</option>
+          <option value="arus">Hitung Arus</option>
+          <option value="hambatan">Hitung Hambatan</option>
+          <option value="seri">Hambatan Total Seri</option>
+          <option value="paralel">Hambatan Total Paralel</option>
+        </select>
+
+        <label id="label1">Nilai Pertama</label>
+
+        <input type="number" id="nilai1" placeholder="Masukkan nilai">
+
+        <label id="label2">Nilai Kedua</label>
+
+        <input type="number" id="nilai2" placeholder="Masukkan nilai">
+
+        <div id="tambahanHambatan">
+
+          <label id="label3">Hambatan 3 (R3)</label>
+          <input type="number" id="nilai3" placeholder="Masukkan R3">
+
+          <label id="label4">Hambatan 4 (R4)</label>
+          <input type="number" id="nilai4" placeholder="Masukkan R4">
+
+          <label id="label5">Hambatan 5 (R5)</label>
+          <input type="number" id="nilai5" placeholder="Masukkan R5">
+
+        </div>
+
+        <button onclick="hitung()">
+          Hitung
+        </button>
+
+      </div>
+
+      <div class="note">
+        Gunakan satuan Volt, Ampere, dan Ohm.
+      </div>
+
+      <div class="hasil" id="hasil">
+        Hasil perhitungan akan muncul di sini.
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTOH -->
+
+  <section id="contoh">
+
+    <h1> <b>Contoh Soal</b></h1>
+
+    <div class="card">
+
+      <h3>Soal 1</h3>
+
+      <br>
+
+      <p>
+        Sebuah lampu memiliki hambatan 10 Ω dan arus 2 A.
+        Hitung besar tegangannya.
+      </p>
+
+      <br>
+
+      <p>
+        V = I × R
+      </p>
+
+      <p>
+        V = 2 × 10
+      </p>
+
+      <p>
+        V = 20 Volt
+      </p>
+
+      <br>
+      <hr><br>
+
+      <h3>Soal 2</h3>
+
+      <br>
+
+      <p>
+        Sebuah rangkaian memiliki tegangan 12 Volt dan hambatan 4 Ω.
+        Hitung besar arus listriknya.
+      </p>
+
+      <br>
+
+      <p>
+        I = V / R
+      </p>
+
+      <p>
+        I = 12 / 4
+      </p>
+
+      <p>
+        I = 3 Ampere
+      </p>
+
+      <br>
+      <hr><br>
+
+      <h3>Soal 3</h3>
+
+      <br>
+
+      <p>
+        Sebuah rangkaian seri memiliki hambatan:
+        R1 = 2 Ω, R2 = 4 Ω, dan R3 = 6 Ω.
+        Hitung hambatan totalnya.
+      </p>
+
+      <br>
+
+      <p>
+        Rtotal = R1 + R2 + R3
+      </p>
+
+      <p>
+        Rtotal = 2 + 4 + 6
+      </p>
+
+      <p>
+        Rtotal = 12 Ω
+      </p>
+
+      <br>
+      <hr><br>
+
+      <h3>Soal 4</h3>
+
+      <br>
+
+      <p>
+        Sebuah rangkaian paralel memiliki hambatan
+        R1 = 3 Ω dan R2 = 6 Ω.
+        Hitung hambatan totalnya.
+      </p>
+
+      <br>
+
+      <p>
+        1/R = 1/R1 + 1/R2
+      </p>
+
+      <p>
+        1/R = 1/3 + 1/6
+      </p>
+
+      <p>
+        1/R = 2/6 + 1/6
+      </p>
+
+      <p>
+        1/R = 3/6
+      </p>
+
+      <p>
+        R = 2 Ω
+      </p>
+
+      <br>
+      <hr><br>
+
+      <h3>Soal 5</h3>
+
+      <br>
+
+      <p>
+        Sebuah hambatan memiliki tegangan 24 Volt
+        dan arus listrik 3 Ampere.
+        Hitung besar hambatannya.
+      </p>
+
+      <br>
+
+      <p>
+        R = V / I
+      </p>
+
+      <p>
+        R = 24 / 3
+      </p>
+
+      <p>
+        R = 8 Ω
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- FAQ -->
+
+  <section id="faq">
+
+    <h2>FAQ</h2>
+
+    <div class="card">
+
+      <div class="faq-item">
+
+        <h3>Apa itu Hukum Ohm?</h3>
+
+        <p>
+          Hukum Ohm menjelaskan hubungan antara tegangan,
+          arus listrik, dan hambatan.
+        </p>
+
+      </div>
+
+      <div class="faq-item">
+
+        <h3>Di mana arus searah digunakan?</h3>
+
+        <p>
+          Arus searah digunakan pada baterai, power bank,
+          remote, dan perangkat elektronik lainnya.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- KESIMPULAN -->
+
+  <section>
+
+    <h2>Kesimpulan</h2>
+
+    <div class="card">
+
+      <p>
+        Rangkaian arus searah merupakan dasar penting dalam
+        pembelajaran listrik. Dengan memahami Hukum Ohm,
+        kita dapat menghitung berbagai besaran listrik
+        dengan lebih mudah.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      Website Pembelajaran Fisika Arus Searah
+    </p>
+
+    <br>
+
+    <small>
+      Dibuat menggunakan HTML, CSS, dan JavaScript
+    </small>
+
+  </footer>
+
+  <!-- TOP BUTTON -->
+
+  <a href="#" class="top-btn">
+    ↑
+  </a>
+
+  <script>
+
+    const pilihan =
+      document.getElementById("pilihan");
+
+    const label1 =
+      document.getElementById("label1");
+
+    const label2 =
+      document.getElementById("label2");
+
+    const label3 =
+      document.getElementById("label3");
+
+    const label4 =
+      document.getElementById("label4");
+
+    const label5 =
+      document.getElementById("label5");
+
+    const input1 =
+      document.getElementById("nilai1");
+
+    const input2 =
+      document.getElementById("nilai2");
+
+    const input3 =
+      document.getElementById("nilai3");
+
+    const input4 =
+      document.getElementById("nilai4");
+
+    const input5 =
+      document.getElementById("nilai5");
+
+    const tambahanHambatan =
+      document.getElementById("tambahanHambatan");
+
+    function updateInput() {
+
+      if (pilihan.value === "tegangan") {
+        tambahanHambatan.style.display = "none";
+        label1.innerHTML = "Arus (I)";
+        label2.innerHTML = "Hambatan (R)";
+
+        input1.placeholder = "Masukkan arus";
+        input2.placeholder = "Masukkan hambatan";
+      }
+
+      else if (pilihan.value === "arus") {
+        tambahanHambatan.style.display = "none";
+        label1.innerHTML = "Tegangan (V)";
+        label2.innerHTML = "Hambatan (R)";
+
+        input1.placeholder = "Masukkan tegangan";
+        input2.placeholder = "Masukkan hambatan";
+      }
+
+      else if (pilihan.value === "seri") {
+        tambahanHambatan.style.display = "flex";
+
+        label1.innerHTML = "Hambatan 1 (R1)";
+        label2.innerHTML = "Hambatan 2 (R2)";
+
+        input1.placeholder = "Masukkan R1";
+        input2.placeholder = "Masukkan R2";
+        input3.placeholder = "Masukkan R3";
+        input4.placeholder = "Masukkan R4";
+        input5.placeholder = "Masukkan R5";
+      }
+
+      else if (pilihan.value === "paralel") {
+        ttambahanHambatan.style.display = "flex";
+        label1.innerHTML = "Hambatan 1 (R1)";
+        label2.innerHTML = "Hambatan 2 (R2)";
+        label2.innerHTML = "Hambatan 2 (R2)";
+        label3.innerHTML = "Hambatan 3 (R3)";
+        label4.innerHTML = "Hambatan 4 (R4)";
+        label5.innerHTML = "Hambatan 5 (R5)";
+
+        input1.placeholder = "Masukkan R1";
+        input2.placeholder = "Masukkan R2";
+        input3.placeholder = "Masukkan R3";
+        input4.placeholder = "Masukkan R4";
+        input5.placeholder = "Masukkan R5";
+      }
+
+      else {
+        tambahanHambatan.style.display = "none";
+        label1.innerHTML = "Tegangan (V)";
+        label2.innerHTML = "Arus (I)";
+
+        input1.placeholder = "Masukkan tegangan";
+        input2.placeholder = "Masukkan arus";
+      }
+
+    }
+
+    pilihan.addEventListener("change", updateInput);
+
+    updateInput();
+
+    function hitung() {
+
+      let mode = pilihan.value;
+
+      let nilai1 =
+        parseFloat(input1.value);
+
+      let nilai2 =
+        parseFloat(input2.value);
+
+      let nilai3 =
+        parseFloat(input3.value) || 0;
+
+      let nilai4 =
+        parseFloat(input4.value) || 0;
+
+      let nilai5 =
+        parseFloat(input5.value) || 0;
+
+      let hasil =
+        document.getElementById("hasil");
+
+      if (isNaN(nilai1) || isNaN(nilai2)) {
+
+        hasil.innerHTML =
+          "Masukkan angka terlebih dahulu.";
+
+        return;
+      }
+
+      if (nilai2 == 0 && mode != "tegangan") {
+
+        hasil.innerHTML =
+          "Tidak bisa dibagi nol.";
+
+        return;
+      }
+
+      if (mode === "tegangan") {
+
+        let total = nilai1 * nilai2;
+
+        hasil.innerHTML = `
+          <h3>Hasil Perhitungan</h3>
+          <br>
+          <p>V = I × R</p>
+          <p>V = ${nilai1} × ${nilai2}</p>
+          <br>
+          <p><b>${total.toFixed(2)} Volt</b></p>
+        `;
+      }
+
+      else if (mode === "arus") {
+
+        let total = nilai1 / nilai2;
+
+        hasil.innerHTML = `
+          <h3>Hasil Perhitungan</h3>
+          <br>
+          <p>I = V / R</p>
+          <p>I = ${nilai1} / ${nilai2}</p>
+          <br>
+          <p><b>${total.toFixed(2)} Ampere</b></p>
+        `;
+      }
+
+      else if (mode === "seri") {
+
+        let total = nilai1 + nilai2 + nilai3 + nilai4 + nilai5;
+
+        hasil.innerHTML = `
+    <h3>Hambatan Total Seri</h3>
+    <br>
+    <p>R = R1 + R2 + R3 + R4 + R5</p>
+    <p>R = ${nilai1} + ${nilai2} + ${nilai3} + ${nilai4} + ${nilai5}</p>
+    <br>
+    <p><b>${total.toFixed(2)} Ohm</b></p>
+  `;
+      }
+
+      else if (mode === "paralel") {
+
+        let total = 1 / (
+          (nilai1 ? 1 / nilai1 : 0) +
+          (nilai2 ? 1 / nilai2 : 0) +
+          (nilai3 ? 1 / nilai3 : 0) +
+          (nilai4 ? 1 / nilai4 : 0) +
+          (nilai5 ? 1 / nilai5 : 0)
+        );
+
+        hasil.innerHTML = `
+    <h3>Hambatan Total Paralel</h3>
+    <br>
+
+    <p>1/R = 1/R1 + 1/R2 + 1/R3 + 1/R4 + 1/R5</p>
+
+    <p>
+      1/R = 1/${nilai1} + 1/${nilai2} + 1/${nilai3} + 1/${nilai4} + 1/${nilai5}
+    </p>
+
+    <br>
+
+    <p><b>${total.toFixed(2)} Ohm</b></p>
+  `;
+      }
+
+      else {
+
+        let total = nilai1 / nilai2;
+
+        hasil.innerHTML = `
+          <h3>Hasil Perhitungan</h3>
+          <br>
+          <p>R = V / I</p>
+          <p>R = ${nilai1} / ${nilai2}</p>
+          <br>
+          <p><b>${total.toFixed(2)} Ohm</b></p>
+        `;
+      }
+
+    }
+
+    /* ACTIVE NAVBAR */
+
+    const sections =
+      document.querySelectorAll("section");
+
+    const navLinks =
+      document.querySelectorAll("nav ul li a");
+
+    window.addEventListener("scroll", () => {
+
+      let current = "";
+
+      sections.forEach(section => {
+
+        const sectionTop =
+          section.offsetTop;
+
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute("id");
+        }
+
+      });
+
+      navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href")
+          === `#${current}`) {
+
+          link.classList.add("active");
+        }
+
+      });
+
+    });
+
+    /* ANIMASI CARD */
+
+    const cards =
+      document.querySelectorAll(".card");
+
+    window.addEventListener("scroll", () => {
+
+      cards.forEach(card => {
+
+        const cardTop =
+          card.getBoundingClientRect().top;
+
+        if (cardTop < window.innerHeight - 100) {
+          card.classList.add("show");
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
